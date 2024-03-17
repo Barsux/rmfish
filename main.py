@@ -8,6 +8,7 @@ TRIES = 10
 SUMX = 168
 SUMY = 27
 HOOK_INTERVAL = 0
+TIMEOUT = 0.65
 
 
 def get_pressed_key():
@@ -44,7 +45,7 @@ class Fisher:
         except pyautogui.ImageNotFoundException:
             return
         print("Начался скиллчек")
-        time.sleep(2)
+        time.sleep(TIMEOUT)
         for i in range(3):
             pyautogui.click(locate[0] + SUMX, locate[1] + SUMY)
         print("Подсёк")
@@ -59,7 +60,7 @@ class Fisher:
         except pyautogui.ImageNotFoundException:
             pass
         else:
-            for i in range(30):
+            for i in range(20):
                 pyautogui.click()
             self.state = 1
             print("Поймал рыбу, жду следующий скиллчек...")
@@ -84,6 +85,8 @@ if __name__ == "__main__":
     get_pressed_key()
     print(f"Выбранная кнопка: {key}")
     time.sleep(1)
+    num = int(input("Введите номер удочки:"))
+    TIMEOUT *= (4 - num)
     print("Ожидание запуска...")
     fisher = Fisher()
     timestamp = time.time()
